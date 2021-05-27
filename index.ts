@@ -5,10 +5,6 @@ const app: express.Express = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-app.get('/', function (req, res) {
-    res.send('Hello, world!');
-});
-
 app.post('/recipes', function (req, res) {
     console.log(req.body);
     const hasAllRequiredProps = ["title", "preparation_time", "serves", "ingredients", "cost"]
