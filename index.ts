@@ -21,6 +21,7 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post('/recipes', (req, res) => {
+    console.log(req.body);
     const hasAllRequiredProps = ["title", "preparation_time", "serves", "ingredients", "cost"]
         .every((c) => Object.prototype.hasOwnProperty.call(req.body, c));
     if (hasAllRequiredProps) {
