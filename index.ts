@@ -1,25 +1,46 @@
 import express from "express";
 import dayjs from "dayjs";
 
+let fakeId = 0;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fakeDb: { [id: number]: any } = {};
+
 const app: express.Express = express();
 app.use(express.json());
 const port = process.env.PORT || 3000;
 
-app.post('/recipes', function (req, res) {
+app.get('/', (req, res) => {
+    res.statusCode = 404;
+    res.send();
+});
+
+app.get('/recipes', (req, res) => {
+    res.send({
+        "recipes": Object.values(fakeDb),
+    });
+});
+
+app.post('/recipes', (req, res) => {
     console.log(req.body);
     const hasAllRequiredProps = ["title", "preparation_time", "serves", "ingredients", "cost"]
         .every((c) => Object.prototype.hasOwnProperty.call(req.body, c));
     if (hasAllRequiredProps) {
+        fakeId++;
+        const newRecipe =
+        {
+            "id": fakeId,
+            "title": req.body.title,
+            "preparation_time": req.body.preparation_time,
+            "serves": req.body.serves,
+            "ingredients": req.body.ingredients,
+            "cost": req.body.cost,
+        };
+        fakeDb[fakeId] = newRecipe;
         res.send({
             "message": "Recipe successfully created!",
             "recipe": [
                 {
-                    "id": "3",
-                    "title": req.body.title,
-                    "preparation_time": req.body.preparation_time,
-                    "serves": req.body.serves,
-                    "ingredients": req.body.ingredients,
-                    "cost": req.body.cost,
+                    ...newRecipe,
                     "created_at": dayjs().format('YYYY-MM-DD HH:mm:ss'),
                     "updated_at": dayjs().format('YYYY-MM-DD HH:mm:ss')
                 }
