@@ -54,10 +54,6 @@ app.post('/recipes', (req, res) => {
 });
 
 app.get('/recipes/:id', (req, res) => {
-    const data = fakeDb[req.params.id as unknown as number];
-    if (!data) {
-        res.statusCode = 404;
-    }
     res.send({
         "message": "Recipe details by id",
         "recipe": fakeDb[req.params.id as unknown as number]
