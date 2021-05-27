@@ -55,6 +55,7 @@ app.post('/recipes', (req, res) => {
 });
 
 app.get('/recipes/:id', (req, res) => {
+    console.log(req.body);
     res.send({
         "message": "Recipe details by id",
         "recipe": fakeDb[req.params.id as unknown as number]
