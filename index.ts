@@ -64,6 +64,18 @@ app.get('/recipes/:id', (req, res) => {
     });
 });
 
+app.patch('/recipes/:id', (req, res) => {
+    const id = req.params.id as unknown as number;
+    const newData = { ...fakeDb[id], ...req.body };
+    fakeDb[id] = newData;
+    res.send({
+        "message": "Recipe successfully updated!",
+        "recipe": [
+            newData
+        ]
+    });
+});
+
 app.delete('/recipes/:id', (req, res) => {
     const data = fakeDb[req.params.id as unknown as number];
     const resb = data ? { "message": "Recipe successfully removed!" } : { "message": "No recipe found" };
