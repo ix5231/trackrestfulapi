@@ -21,7 +21,6 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post('/recipes', (req, res) => {
-    console.log(req.body);
     const hasAllRequiredProps = ["title", "preparation_time", "serves", "ingredients", "cost"]
         .every((c) => Object.prototype.hasOwnProperty.call(req.body, c));
     if (hasAllRequiredProps) {
@@ -63,6 +62,15 @@ app.get('/recipes/:id', (req, res) => {
         "message": "Recipe details by id",
         "recipe": fakeDb[req.params.id as unknown as number]
     });
+});
+
+app.delete('/recipes/:id', (req, res) => {
+    const data = fakeDb[req.params.id as unknown as number];
+    const resb = data ? { "message": "Recipe successfully removed!" } : { "message": "No recipe found" };
+    if (data) {
+        delete fakeDb[req.params.id as unknown as number];
+    }
+    res.send(resb);
 });
 
 app.listen(port, () => {
