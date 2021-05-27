@@ -29,7 +29,7 @@ app.post('/recipes', (req, res) => {
         {
             "id": fakeId,
             "title": req.body.title,
-            "preparation_time": req.body.preparation_time,
+            "making_time": req.body.making_time,
             "serves": req.body.serves,
             "ingredients": req.body.ingredients,
             "cost": req.body.cost,
