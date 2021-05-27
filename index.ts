@@ -21,7 +21,6 @@ app.get('/recipes', (req, res) => {
 });
 
 app.post('/recipes', (req, res) => {
-    console.log(req.body);
     const hasAllRequiredProps = ["title", "making_time", "serves", "ingredients", "cost"]
         .every((c) => Object.prototype.hasOwnProperty.call(req.body, c));
     if (hasAllRequiredProps) {
@@ -55,7 +54,6 @@ app.post('/recipes', (req, res) => {
 });
 
 app.get('/recipes/:id', (req, res) => {
-    console.log(req.body);
     res.send({
         "message": "Recipe details by id",
         "recipe": [fakeDb[req.params.id as unknown as number]]
